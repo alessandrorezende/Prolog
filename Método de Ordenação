@@ -1,0 +1,35 @@
+% Métodos de ordenação
+
+%insercao direta
+
+ordInsDireta(L,Comp,LOrd):-
+      ordInsDireta(L,[],0,Comp,LOrd).
+
+
+ordInsDireta([],Resp,Comp,Comp,Resp):- !.
+ordInsDireta([H|T],Mao,Comp,RespComp,Resp):-
+      insere(H,Mao,NroComp,NovaMao),
+      NComp is Comp+NroComp,
+      ordInsDireta(T,NovaMao,NComp,RespComp,Resp),!.
+      
+insere(Elem,[],0,[Elem]) :- !.
+insere(Elem,[H|T],1,[Elem,H|T]) :- Elem =< H,!.
+insere(Elem,[H|T],N,[H|R]) :- insere(Elem,T,N1,R), N is N1+1,!.
+
+%selecao direta
+
+ordSelDireta([],[]):-!.
+ordSelDireta([X],[X]):-!.
+ordSelDireta(Lista,[Menor|RestOrd]):-
+      seleciona_menor(Lista,Menor,Resto),
+      ordSelDireta(Resto,RestOrd),!.
+
+seleciona_menor([H],H,[]):-!.
+seleciona_menor([H|T],Mt,[H|RestoT]):-
+      seleciona_menor(T,Mt,RestoT),Mt=<H,!.
+      seleciona_menor([H|T],H,T):-!.
+
+
+
+
+
